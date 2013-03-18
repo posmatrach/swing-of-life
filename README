@@ -1,0 +1,9 @@
+############################
+##                        ##
+##  ~= Swing of Life =~   ##
+##                        ##
+############################
+
+Implementation of popular cellular automata - John Conway's Game of Life.
+Uses Swing as UI, although it's possible to use a different UI.
+Also uses Tapestry IoC for dependency injection.
