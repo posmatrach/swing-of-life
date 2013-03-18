@@ -2,6 +2,8 @@ package net.nsquared.swingoflife.swingoflife.enums;
 
 
 /**
+ * Enum representing possible states of the cell (active and inactive)
+ * 
  * @author Sean (nenad.natoshevic@gmail.com)
  *
  */

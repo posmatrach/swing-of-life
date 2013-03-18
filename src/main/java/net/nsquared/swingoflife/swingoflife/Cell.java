@@ -16,7 +16,7 @@ public class Cell {
 	
 	private CellState queuedState;
 	
-	public void accept(RuleExecutor applicator) {
+	public void accept(RuleExecutor ruleExecutor) {
 		
 	}
 	
@@ -39,8 +39,16 @@ public class Cell {
 		
 	}
 	
-	public void enqueueState(final CellState state) {
-		this.queuedState = state;
+	public void enqueueState(final CellState newState) {
+		this.queuedState = newState;
+	}
+	
+	public CellState getState() {
+		return this.cellState;
+	}
+	
+	public void setCellState(final CellState newState) {
+		this.cellState = newState;
 	}
 	
 }
