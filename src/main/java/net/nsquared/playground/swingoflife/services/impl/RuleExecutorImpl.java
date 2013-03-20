@@ -1,13 +1,13 @@
-package net.nsquared.swingoflife.swingoflife.services.impl;
+package net.nsquared.playground.swingoflife.services.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import net.nsquared.swingoflife.swingoflife.Cell;
-import net.nsquared.swingoflife.swingoflife.enums.CellState;
-import net.nsquared.swingoflife.swingoflife.services.ConwayRule;
-import net.nsquared.swingoflife.swingoflife.services.RuleExecutor;
+import net.nsquared.playground.swingoflife.Cell;
+import net.nsquared.playground.swingoflife.enums.CellState;
+import net.nsquared.playground.swingoflife.services.ConwayRule;
+import net.nsquared.playground.swingoflife.services.RuleExecutor;
 
 
 /**

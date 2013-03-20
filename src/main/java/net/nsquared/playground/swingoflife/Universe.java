@@ -1,6 +1,6 @@
-package net.nsquared.swingoflife.swingoflife;
+package net.nsquared.playground.swingoflife;
 
-import net.nsquared.swingoflife.swingoflife.services.RuleExecutor;
+import net.nsquared.playground.swingoflife.services.RuleExecutor;
 
 public class Universe {
 	

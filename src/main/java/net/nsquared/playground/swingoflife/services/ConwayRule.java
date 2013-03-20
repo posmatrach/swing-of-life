@@ -1,6 +1,6 @@
-package net.nsquared.swingoflife.swingoflife.services;
+package net.nsquared.playground.swingoflife.services;
 
-import net.nsquared.swingoflife.swingoflife.Cell;
+import net.nsquared.playground.swingoflife.Cell;
 
 /**
  * Rule for the Game of Life, used by {@link RuleExecutor}.

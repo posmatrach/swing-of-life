@@ -1,14 +1,14 @@
-package net.nsquared.swingoflife.swingoflife.services;
+package net.nsquared.playground.swingoflife.services;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import net.nsquared.swingoflife.swingoflife.enums.CellState;
-import net.nsquared.swingoflife.swingoflife.services.impl.ReproductionRule;
-import net.nsquared.swingoflife.swingoflife.services.impl.OverPopulationRule;
-import net.nsquared.swingoflife.swingoflife.services.impl.PreservationRule;
-import net.nsquared.swingoflife.swingoflife.services.impl.RuleExecutorImpl;
-import net.nsquared.swingoflife.swingoflife.services.impl.UnderPopulationRule;
+import net.nsquared.playground.swingoflife.enums.CellState;
+import net.nsquared.playground.swingoflife.services.impl.OverPopulationRule;
+import net.nsquared.playground.swingoflife.services.impl.PreservationRule;
+import net.nsquared.playground.swingoflife.services.impl.ReproductionRule;
+import net.nsquared.playground.swingoflife.services.impl.RuleExecutorImpl;
+import net.nsquared.playground.swingoflife.services.impl.UnderPopulationRule;
 
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.ObjectLocator;

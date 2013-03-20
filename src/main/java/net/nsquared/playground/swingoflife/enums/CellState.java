@@ -1,4 +1,4 @@
-package net.nsquared.swingoflife.swingoflife.enums;
+package net.nsquared.playground.swingoflife.enums;
 
 
 /**

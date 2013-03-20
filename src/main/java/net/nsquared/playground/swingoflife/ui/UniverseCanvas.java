@@ -1,4 +1,4 @@
-package net.nsquared.swingoflife.swingoflife.ui;
+package net.nsquared.playground.swingoflife.ui;
 
 import java.awt.Canvas;
 
