@@ -14,6 +14,11 @@ public enum CellState {
 		public boolean isActive() {
 			return true;
 		}
+
+		@Override
+		public CellState toggle() {
+			return CellState.INACTIVE;
+		}
 	}, 
 	
 	INACTIVE {
@@ -21,8 +26,15 @@ public enum CellState {
 		public boolean isActive() {
 			return false;
 		}
+
+		@Override
+		public CellState toggle() {
+			return CellState.ACTIVE;
+		}
 	};
 	
 	public abstract boolean isActive();
+	
+	public abstract CellState toggle();
 
 }
