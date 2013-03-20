@@ -5,5 +5,7 @@
 ############################
 
 Implementation of popular cellular automata - John Conway's Game of Life.
-Uses Swing as UI, although it's possible to use a different UI.
-Also uses Tapestry IoC for dependency injection.
+Features:
+* Swing UI, but supports different UI implementations.
+* Uses Tapestry IoC for dependency injection.
+* Rules decoupled from structure by design. (Provides possibility of defining custom rules, swapping them in runtime and so on, in the future.)

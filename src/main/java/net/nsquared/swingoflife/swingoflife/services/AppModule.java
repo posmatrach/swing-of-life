@@ -32,9 +32,9 @@ public class AppModule {
 	 */
 	public static void bind(ServiceBinder binder) {
 		binder.bind(RuleExecutor.class, RuleExecutorImpl.class);
-		/* Not necessary to bind rule objects, as they can be simply instantiated,
-		 * but haven them bound by the IoC container, allows them to be injected in any
-		 * of the bound services, which might come in handy.
+		/* Not necessary to bind rule classes, as can be simply instantiated,
+		 * but having them bound by the IoC container, allows them to be injected in any
+		 * of the other bound services, which might come in handy.
 		 */
 		binder.bind(ConwayRule.class, OverPopulationRule.class).withId("OverPopulationRule");
 		binder.bind(ConwayRule.class, UnderPopulationRule.class).withId("UnderPopulationRule");

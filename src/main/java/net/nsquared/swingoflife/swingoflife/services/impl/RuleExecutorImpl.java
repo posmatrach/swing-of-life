@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.tapestry5.internal.plastic.asm.Handle;
-
 import net.nsquared.swingoflife.swingoflife.Cell;
 import net.nsquared.swingoflife.swingoflife.enums.CellState;
 import net.nsquared.swingoflife.swingoflife.services.ConwayRule;
