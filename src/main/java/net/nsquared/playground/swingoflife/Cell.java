@@ -10,14 +10,14 @@ import org.apache.tapestry5.func.F;
 import org.apache.tapestry5.func.Predicate;
 
 /**
- * 
+ * Representation of one cell in the GoL
  * 
  * @author Sean (nenad.natoshevic@gmail.com)
  * 
  */
 public class Cell {
 
-	private final Set<Cell> neighbours;
+	private Set<Cell> neighbours;
 
 	private CellState currentState;
 
@@ -86,6 +86,10 @@ public class Cell {
 
 	public void toggleState() {
 		this.currentState = this.currentState.toggle();
+	}
+
+	public void setNeighbours(final Set<Cell> neighbours) {
+		this.neighbours = neighbours;
 	}
 
 }

@@ -42,8 +42,7 @@ public class UniverseCanvas extends Canvas {
 		this.universe = universe;
 
 		this.liveCellImage = new ImageIcon(
-				UniverseCanvas.class.getResource("images/cell_image.png"))
-				.getImage();
+				UniverseCanvas.class.getResource("cell_image.png")).getImage();
 
 		this.cellSize = liveCellImage.getWidth(this);
 
