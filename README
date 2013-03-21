@@ -4,8 +4,19 @@
 ##                        ##
 ############################
 
-Implementation of popular cellular automata - John Conway's Game of Life.
+Implementation of popular cellular automation, zero-player game - John Conway's Game of Life.
+
 Features:
-* Swing UI, but supports different UI implementations.
+* Uses Swing for UI.
 * Uses Tapestry IoC for dependency injection.
+* Uses Foxtrot for multi-threading.
 * Rules decoupled from structure by design. (Provides possibility of defining custom rules, swapping them in runtime and so on, in the future.)
+
+TODO
+* Fix issues with IoC
+* Improve life algorithm (possible parallel implementation?)
+* Make life implementations swappable in runtime.
+* Add support for designing and saving patterns
+* Add support for rule definition and swapping in runtime
+* Add UI observer style UI binding.
+ 
