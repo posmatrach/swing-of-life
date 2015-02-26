@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile group: 'org.apache.tapestry', name: 'tapestry-ioc', version:'5.3.6'
+    compile group: 'org.apache.tapestry', name: 'tapestry-func', version:'5.3.6'
+    compile group: 'foxtrot', name: 'foxtrot-core', version:'4.0'
+    compile group: 'jgoodies', name: 'forms', version:'1.0.5'
+    testCompile group: 'junit', name: 'junit', version:'3.8.1'
+}

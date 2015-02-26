@@ -1,6 +1,6 @@
-package net.nsquared.playground.swingoflife.services;
+package solutions.graviton.swingoflife.services;
 
-import net.nsquared.playground.swingoflife.Cell;
+import solutions.graviton.swingoflife.Cell;
 
 /**
  * Rule for the Game of Life, used by {@link RuleExecutor}.
@@ -9,8 +9,7 @@ import net.nsquared.playground.swingoflife.Cell;
  * @author Sean (nenad.natoshevic@gmail.com)
  *
  */
-public interface ConwayRule {
-	
+public interface ConwayRule
+{
 	void apply(Cell cell);
-
 }

@@ -1,15 +1,7 @@
-package net.nsquared.playground.swingoflife.services;
+package solutions.graviton.swingoflife.services;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import net.nsquared.playground.swingoflife.enums.CellState;
-import net.nsquared.playground.swingoflife.services.impl.OverPopulationRule;
-import net.nsquared.playground.swingoflife.services.impl.PreservationRule;
-import net.nsquared.playground.swingoflife.services.impl.PropertiesImpl;
-import net.nsquared.playground.swingoflife.services.impl.ReproductionRule;
-import net.nsquared.playground.swingoflife.services.impl.RuleExecutorImpl;
-import net.nsquared.playground.swingoflife.services.impl.UnderPopulationRule;
 
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.ObjectLocator;
@@ -17,20 +9,29 @@ import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import solutions.graviton.swingoflife.enums.CellState;
+import solutions.graviton.swingoflife.services.impl.OverPopulationRule;
+import solutions.graviton.swingoflife.services.impl.PreservationRule;
+import solutions.graviton.swingoflife.services.impl.PropertiesImpl;
+import solutions.graviton.swingoflife.services.impl.ReproductionRule;
+import solutions.graviton.swingoflife.services.impl.RuleExecutorImpl;
+import solutions.graviton.swingoflife.services.impl.UnderPopulationRule;
+
 /**
  * Convenience class for Tapestry IoC configuration.
  * 
  * @author Sean (nenad.natoshevic@gmail.com)
  * 
  */
-public class AppModule {
-
+public class AppModule
+{
 	/**
 	 * Provides interface-to-implementation bindings for Tapestry IoC
 	 * 
 	 * @param binder
 	 */
-	public static void bind(ServiceBinder binder) {
+	public static void bind(ServiceBinder binder)
+	{
 		binder.bind(RuleExecutor.class, RuleExecutorImpl.class);
 		/*
 		 * Not necessary to bind rule classes, as can be simply instantiated,
@@ -39,13 +40,13 @@ public class AppModule {
 		 * handy.
 		 */
 		binder.bind(ConwayRule.class, OverPopulationRule.class).withId(
-				"OverPopulationRule");
+			"OverPopulationRule");
 		binder.bind(ConwayRule.class, UnderPopulationRule.class).withId(
-				"UnderPopulationRule");
+			"UnderPopulationRule");
 		binder.bind(ConwayRule.class, PreservationRule.class).withId(
-				"PreservationRule");
+			"PreservationRule");
 		binder.bind(ConwayRule.class, ReproductionRule.class).withId(
-				"ReproductionRule");
+			"ReproductionRule");
 
 		binder.bind(Properties.class, PropertiesImpl.class);
 
@@ -60,9 +61,9 @@ public class AppModule {
 	 */
 	@Contribute(RuleExecutor.class)
 	public static void provideConwayRules(
-			MappedConfiguration<CellState, Set<ConwayRule>> configuration,
-			@Inject
-			ObjectLocator locator) {
+		MappedConfiguration<CellState,Set<ConwayRule>> configuration,
+		@Inject ObjectLocator locator)
+	{
 		configuration.add(CellState.ACTIVE, getActiveRuleSet(locator));
 		configuration.add(CellState.INACTIVE, getInactiveRules(locator));
 	}
@@ -73,7 +74,8 @@ public class AppModule {
 	 * @param locator (Tapestry IoC ObjectLocater)
 	 * @return set of {@link ConwayRule}
 	 */
-	private static Set<ConwayRule> getActiveRuleSet(ObjectLocator locator) {
+	private static Set<ConwayRule> getActiveRuleSet(ObjectLocator locator)
+	{
 		Set<ConwayRule> rules = new HashSet<ConwayRule>();
 
 		rules.add(locator.getService("OverPopulationRule", ConwayRule.class));
@@ -89,12 +91,12 @@ public class AppModule {
 	 * @param locator (Tapestry IoC ObjectLocater)
 	 * @return set of {@link ConwayRule}
 	 */
-	private static Set<ConwayRule> getInactiveRules(ObjectLocator locator) {
+	private static Set<ConwayRule> getInactiveRules(ObjectLocator locator)
+	{
 		Set<ConwayRule> rules = new HashSet<ConwayRule>();
 
 		rules.add(locator.getService("ReproductionRule", ConwayRule.class));
 
 		return rules;
 	}
-
 }

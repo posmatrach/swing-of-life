@@ -1,13 +1,13 @@
-package net.nsquared.playground.swingoflife;
+package solutions.graviton.swingoflife;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import net.nsquared.playground.swingoflife.enums.CellState;
-import net.nsquared.playground.swingoflife.services.RuleExecutor;
-
 import org.apache.tapestry5.func.F;
 import org.apache.tapestry5.func.Predicate;
+
+import solutions.graviton.swingoflife.enums.CellState;
+import solutions.graviton.swingoflife.services.RuleExecutor;
 
 /**
  * Representation of one cell in the GoL
@@ -15,7 +15,8 @@ import org.apache.tapestry5.func.Predicate;
  * @author Sean (nenad.natoshevic@gmail.com)
  * 
  */
-public class Cell {
+public class Cell
+{
 
 	private Set<Cell> neighbours;
 
@@ -25,26 +26,31 @@ public class Cell {
 
 	private RuleExecutor ruleExecutor;
 
-	public Cell(final RuleExecutor ruleExecutor) {
+	public Cell(final RuleExecutor ruleExecutor)
+	{
 		this.neighbours = new HashSet<Cell>();
 		this.currentState = CellState.INACTIVE;
 		this.queuedState = null;
 		this.ruleExecutor = ruleExecutor;
 	}
 
-	public void acceptRuleExecutor(final RuleExecutor ruleExecutor) {
+	public void acceptRuleExecutor(final RuleExecutor ruleExecutor)
+	{
 		this.ruleExecutor = ruleExecutor;
 	}
 
-	public boolean isActive() {
+	public boolean isActive()
+	{
 		return currentState.isActive();
 	}
 
-	public int getNumberOfActiveNeighbours() {
+	public int getNumberOfActiveNeighbours()
+	{
 
 		return F.flow(neighbours).filter(new Predicate<Cell>() {
 
-			public boolean accept(Cell cell) {
+			public boolean accept(Cell cell)
+			{
 				return cell.isActive();
 			}
 
@@ -52,27 +58,33 @@ public class Cell {
 
 	}
 
-	public void enqueueState(final CellState newState) {
-		if (newState != this.currentState)
+	public void enqueueState(final CellState newState)
+	{
+		if(newState != this.currentState)
 			this.queuedState = newState;
 	}
 
-	public CellState getState() {
+	public CellState getState()
+	{
 		return this.currentState;
 	}
 
-	public void setState(final CellState newState) {
+	public void setState(final CellState newState)
+	{
 		this.currentState = newState;
 	}
 
-	public void addNeighbour(final Cell neighbour) {
+	public void addNeighbour(final Cell neighbour)
+	{
 		neighbours.add(neighbour);
 	}
 
-	public boolean updateState() {
+	public boolean updateState()
+	{
 		boolean stateChanged = false;
 
-		if (queuedState != null) {
+		if(queuedState != null)
+		{
 			this.currentState = queuedState;
 			this.queuedState = null;
 			stateChanged = true;
@@ -80,15 +92,18 @@ public class Cell {
 		return stateChanged;
 	}
 
-	public void executeRules() {
+	public void executeRules()
+	{
 		this.ruleExecutor.execute(this);
 	}
 
-	public void toggleState() {
+	public void toggleState()
+	{
 		this.currentState = this.currentState.toggle();
 	}
 
-	public void setNeighbours(final Set<Cell> neighbours) {
+	public void setNeighbours(final Set<Cell> neighbours)
+	{
 		this.neighbours = neighbours;
 	}
 

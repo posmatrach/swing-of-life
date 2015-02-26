@@ -1,18 +1,18 @@
-package net.nsquared.playground.swingoflife.ui;
+package solutions.graviton.swingoflife.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-import net.nsquared.playground.swingoflife.services.AppModule;
-import net.nsquared.playground.swingoflife.services.Properties;
-
 import org.apache.tapestry5.ioc.Registry;
 import org.apache.tapestry5.ioc.RegistryBuilder;
 
-public class App {
+import solutions.graviton.swingoflife.services.AppModule;
+import solutions.graviton.swingoflife.services.Properties;
 
+public class App
+{
 	private JFrame frame;
 
 	private final Registry registry;
@@ -22,12 +22,14 @@ public class App {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-
+	public static void main(String[] args)
+	{
 		EventQueue.invokeLater(new Runnable() {
 			@Override
-			public void run() {
-				try {
+			public void run()
+			{
+				try
+				{
 					RegistryBuilder builder = new RegistryBuilder();
 					builder.add(AppModule.class);
 
@@ -42,7 +44,8 @@ public class App {
 					// Shutdown registry
 					// registry.shutdown();
 				}
-				catch (Exception e) {
+				catch(Exception e)
+				{
 					e.printStackTrace();
 				}
 			}
@@ -53,7 +56,8 @@ public class App {
 	/**
 	 * Create the application.
 	 */
-	public App(final Registry registry) {
+	public App(final Registry registry)
+	{
 		this.registry = registry;
 		this.properties = registry.getService(Properties.class);
 		initialize();
@@ -62,7 +66,8 @@ public class App {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize()
+	{
 		String title = properties.getProperty("app.title");
 		frame = new JFrame(title);
 		frame.getContentPane().add(BorderLayout.CENTER, new MainGUI(registry));

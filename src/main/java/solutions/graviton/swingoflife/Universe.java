@@ -1,10 +1,10 @@
-package net.nsquared.playground.swingoflife;
-
-import net.nsquared.playground.swingoflife.enums.CellState;
-import net.nsquared.playground.swingoflife.services.RuleExecutor;
-import net.nsquared.playground.swingoflife.utils.ConwayUtils;
+package solutions.graviton.swingoflife;
 
 import org.apache.tapestry5.ioc.Registry;
+
+import solutions.graviton.swingoflife.enums.CellState;
+import solutions.graviton.swingoflife.services.RuleExecutor;
+import solutions.graviton.swingoflife.utils.ConwayUtils;
 
 /**
  * Universe - Main class of GoL. Cell container, in charge of advancing
@@ -13,7 +13,8 @@ import org.apache.tapestry5.ioc.Registry;
  * @author Sean (nenad.natoshevic@gmail.com)
  * 
  */
-public class Universe {
+public class Universe
+{
 
 	private final Cell[][] cellGrid;
 
@@ -30,11 +31,11 @@ public class Universe {
 	 * @param columns - number of columns of the cell matrix
 	 * @param executor - {@link RuleExecutor} rule set for the GoL
 	 */
-	public Universe(final int rows, final int columns, final Registry registry) {
+	public Universe(final int rows, final int columns, final Registry registry)
+	{
 
-		if (rows < 8 || columns < 8)
-			throw new RuntimeException(
-					"Size of the universe must be at least 8 x 8!");
+		if(rows < 8 || columns < 8)
+			throw new RuntimeException("Size of the universe must be at least 8 x 8!");
 
 		this.numberOfRows = rows;
 		this.numberOfColumns = columns;
@@ -46,10 +47,13 @@ public class Universe {
 	/**
 	 * Convenience method for initializing cells in the grid
 	 */
-	private void initializeCells() {
+	private void initializeCells()
+	{
 
-		for (int i = 0; i < numberOfRows; i++) {
-			for (int j = 0; j < numberOfColumns; j++) {
+		for(int i = 0; i < numberOfRows; i++)
+		{
+			for(int j = 0; j < numberOfColumns; j++)
+			{
 				Cell newCell = new Cell(registry.getService(RuleExecutor.class));
 				newCell.setNeighbours(ConwayUtils.setupNeighbours(this, i, j));
 				cellGrid[i][j] = newCell;
@@ -63,21 +67,24 @@ public class Universe {
 	 * @param y - y coordinate in the cell grid
 	 * @return {@link Cell} at given coordinates
 	 */
-	public Cell getCellAt(final int x, final int y) {
+	public Cell getCellAt(final int x, final int y)
+	{
 		return cellGrid[x][y];
 	}
 
 	/**
 	 * @return number of rows in the cell matrix
 	 */
-	public int getNumberOfRows() {
+	public int getNumberOfRows()
+	{
 		return this.numberOfRows;
 	}
 
 	/**
 	 * @return number of columns in the cell matrix
 	 */
-	public int getNumberOfColumns() {
+	public int getNumberOfColumns()
+	{
 		return this.numberOfColumns;
 	}
 
@@ -87,15 +94,18 @@ public class Universe {
 	 * 
 	 * @return true
 	 */
-	public boolean tick() {
+	public boolean tick()
+	{
 
 		boolean universeChanged = false;
 
 		/*
 		 * Execute rules on all of the cells. Rules enqueue the next cell state.
 		 */
-		for (int i = 0; i < numberOfRows; i++) {
-			for (int j = 0; j < numberOfColumns; j++) {
+		for(int i = 0; i < numberOfRows; i++)
+		{
+			for(int j = 0; j < numberOfColumns; j++)
+			{
 				Cell tmpCell = cellGrid[i][j];
 				tmpCell.executeRules();
 			}
@@ -105,8 +115,10 @@ public class Universe {
 		 * Update states of all the cells. If the state is updated,
 		 * universeChanged flag is set to true.
 		 */
-		for (int i = 0; i < numberOfRows; i++) {
-			for (int j = 0; j < numberOfColumns; j++) {
+		for(int i = 0; i < numberOfRows; i++)
+		{
+			for(int j = 0; j < numberOfColumns; j++)
+			{
 				Cell tmpCell = cellGrid[i][j];
 				universeChanged |= tmpCell.updateState();
 			}
@@ -118,9 +130,12 @@ public class Universe {
 	/**
 	 * Sets state of all the cells in the universe to INACTIVE
 	 */
-	public void deactivateAll() {
-		for (int i = 0; i < numberOfRows; i++) {
-			for (int j = 0; j < numberOfColumns; j++) {
+	public void deactivateAll()
+	{
+		for(int i = 0; i < numberOfRows; i++)
+		{
+			for(int j = 0; j < numberOfColumns; j++)
+			{
 				Cell tmpCell = cellGrid[i][j];
 				tmpCell.setState(CellState.INACTIVE);
 			}

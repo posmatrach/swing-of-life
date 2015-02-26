@@ -1,7 +1,6 @@
-package net.nsquared.playground.swingoflife.services;
+package solutions.graviton.swingoflife.services;
 
-import net.nsquared.playground.swingoflife.Cell;
-
+import solutions.graviton.swingoflife.Cell;
 
 /**
  * Rule engine for Game of Life. Visitor style decoupling of rule execution and the "universe" building blocks.
@@ -10,6 +9,7 @@ import net.nsquared.playground.swingoflife.Cell;
  * @author Sean (nenad.natoshevic@gmail.com)
  *
  */
-public interface RuleExecutor {
+public interface RuleExecutor
+{
 	void execute(Cell cell);
 }
