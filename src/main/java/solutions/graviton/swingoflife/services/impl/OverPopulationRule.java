@@ -13,9 +13,13 @@ import solutions.graviton.swingoflife.services.ConwayRule;
  */
 public class OverPopulationRule implements ConwayRule
 {
-	public void apply(Cell cell)
+	public boolean apply(Cell cell)
 	{
 		if(cell.getNumberOfActiveNeighbours() > 3)
+		{
 			cell.enqueueState(CellState.INACTIVE);
+			return true;
+		}
+		return false;
 	}
 }

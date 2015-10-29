@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import org.apache.tapestry5.ioc.IOCUtilities;
 import org.apache.tapestry5.ioc.Registry;
 import org.apache.tapestry5.ioc.RegistryBuilder;
 
@@ -30,12 +31,12 @@ public class App
 			{
 				try
 				{
-					RegistryBuilder builder = new RegistryBuilder();
-					builder.add(AppModule.class);
-
-					Registry registry = builder.build();
+					RegistryBuilder regBuilder = new RegistryBuilder();
+					regBuilder.add(AppModule.class);
+					IOCUtilities.addDefaultModules(regBuilder);
+					final Registry registry = regBuilder.build(); 
 					registry.performRegistryStartup();
-
+					
 					App window = new App(registry);
 					window.frame.setVisible(true);
 

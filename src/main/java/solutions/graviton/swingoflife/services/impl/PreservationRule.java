@@ -13,7 +13,7 @@ import solutions.graviton.swingoflife.services.ConwayRule;
  */
 public class PreservationRule implements ConwayRule
 {
-	public void apply(Cell cell)
+	public boolean apply(Cell cell)
 	{
 		final int activeNeighbours = cell.getNumberOfActiveNeighbours();
 
@@ -24,6 +24,8 @@ public class PreservationRule implements ConwayRule
 			 * however for consistency sake, we enqueue Active state for next generation.
 			 */
 			cell.enqueueState(CellState.ACTIVE);
+			return true;
 		}
+		return false;
 	}
 }

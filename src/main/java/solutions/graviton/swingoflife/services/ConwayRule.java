@@ -11,5 +11,5 @@ import solutions.graviton.swingoflife.Cell;
  */
 public interface ConwayRule
 {
-	void apply(Cell cell);
+	boolean apply(Cell cell);
 }

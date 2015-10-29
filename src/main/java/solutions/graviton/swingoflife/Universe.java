@@ -2,9 +2,11 @@ package solutions.graviton.swingoflife;
 
 import org.apache.tapestry5.ioc.Registry;
 
+import com.sun.istack.internal.NotNull;
+
 import solutions.graviton.swingoflife.enums.CellState;
-import solutions.graviton.swingoflife.services.RuleExecutor;
-import solutions.graviton.swingoflife.utils.ConwayUtils;
+import solutions.graviton.swingoflife.services.Context;
+import solutions.graviton.swingoflife.services.ConwayRule;
 
 /**
  * Universe - Main class of GoL. Cell container, in charge of advancing
@@ -13,7 +15,7 @@ import solutions.graviton.swingoflife.utils.ConwayUtils;
  * @author Sean (nenad.natoshevic@gmail.com)
  * 
  */
-public class Universe
+public class Universe implements Context
 {
 
 	private final Cell[][] cellGrid;
@@ -54,8 +56,8 @@ public class Universe
 		{
 			for(int j = 0; j < numberOfColumns; j++)
 			{
-				Cell newCell = new Cell(registry.getService(RuleExecutor.class));
-				newCell.setNeighbours(ConwayUtils.setupNeighbours(this, i, j));
+				ConwayRule defaultRuleExecutor = registry.getService("defaultRuleExecutor", ConwayRule.class);
+				Cell newCell = new Cell(new Coordinates(i, j), this, defaultRuleExecutor);
 				cellGrid[i][j] = newCell;
 			}
 		}
@@ -141,5 +143,14 @@ public class Universe
 			}
 		}
 	}
-
+	
+	@Override
+	public Cell getCellAt(@NotNull Coordinates coordinates)
+	{
+		int x = coordinates.getX();
+		int y = coordinates.getY();
+		if(x >= 0 && x < numberOfRows && y >= 0 && y < numberOfColumns)
+			return getCellAt(coordinates.getX(), coordinates.getY());
+		return null;
+	}
 }

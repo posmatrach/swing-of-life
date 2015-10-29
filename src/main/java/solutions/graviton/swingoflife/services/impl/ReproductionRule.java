@@ -13,9 +13,13 @@ import solutions.graviton.swingoflife.services.ConwayRule;
  */
 public class ReproductionRule implements ConwayRule
 {
-	public void apply(Cell cell)
+	public boolean apply(Cell cell)
 	{
 		if(cell.getNumberOfActiveNeighbours() == 3)
+		{
 			cell.enqueueState(CellState.ACTIVE);
+			return true;
+		}
+		return false;
 	}
 }

@@ -1,13 +1,8 @@
 package solutions.graviton.swingoflife;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.apache.tapestry5.func.F;
-import org.apache.tapestry5.func.Predicate;
-
 import solutions.graviton.swingoflife.enums.CellState;
-import solutions.graviton.swingoflife.services.RuleExecutor;
+import solutions.graviton.swingoflife.services.Context;
+import solutions.graviton.swingoflife.services.ConwayRule;
 
 /**
  * Representation of one cell in the GoL
@@ -17,24 +12,27 @@ import solutions.graviton.swingoflife.services.RuleExecutor;
  */
 public class Cell
 {
-
-	private Set<Cell> neighbours;
-
+	
 	private CellState currentState;
 
 	private CellState queuedState;
 
-	private RuleExecutor ruleExecutor;
+	private ConwayRule ruleExecutor;
+	
+	private Coordinates coordinates;
+	
+	private Context context;
 
-	public Cell(final RuleExecutor ruleExecutor)
+	public Cell(Coordinates coordinates, Context context, final ConwayRule ruleExecutor)
 	{
-		this.neighbours = new HashSet<Cell>();
 		this.currentState = CellState.INACTIVE;
 		this.queuedState = null;
+		this.coordinates = coordinates;
 		this.ruleExecutor = ruleExecutor;
+		this.context = context;
 	}
 
-	public void acceptRuleExecutor(final RuleExecutor ruleExecutor)
+	public void acceptRuleExecutor(final ConwayRule ruleExecutor)
 	{
 		this.ruleExecutor = ruleExecutor;
 	}
@@ -46,16 +44,14 @@ public class Cell
 
 	public int getNumberOfActiveNeighbours()
 	{
-
-		return F.flow(neighbours).filter(new Predicate<Cell>() {
-
-			public boolean accept(Cell cell)
-			{
-				return cell.isActive();
-			}
-
-		}).count();
-
+		int activeCells = 0;
+		for(CellEnvironment env : CellEnvironment.values())
+		{
+			Cell c = context.getCellAt(env.getAbsoluteCoordinates(coordinates));
+			if(null != c && c.getState().equals(CellState.ACTIVE))
+				activeCells++;
+		}
+		return activeCells;
 	}
 
 	public void enqueueState(final CellState newState)
@@ -74,11 +70,6 @@ public class Cell
 		this.currentState = newState;
 	}
 
-	public void addNeighbour(final Cell neighbour)
-	{
-		neighbours.add(neighbour);
-	}
-
 	public boolean updateState()
 	{
 		boolean stateChanged = false;
@@ -94,17 +85,11 @@ public class Cell
 
 	public void executeRules()
 	{
-		this.ruleExecutor.execute(this);
+		this.ruleExecutor.apply(this);
 	}
 
 	public void toggleState()
 	{
 		this.currentState = this.currentState.toggle();
 	}
-
-	public void setNeighbours(final Set<Cell> neighbours)
-	{
-		this.neighbours = neighbours;
-	}
-
 }

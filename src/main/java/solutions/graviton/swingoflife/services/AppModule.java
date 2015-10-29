@@ -1,20 +1,16 @@
 package solutions.graviton.swingoflife.services;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import org.apache.tapestry5.ioc.MappedConfiguration;
-import org.apache.tapestry5.ioc.ObjectLocator;
+import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
-import org.apache.tapestry5.ioc.annotations.Contribute;
-import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.annotations.InjectService;
+import org.apache.tapestry5.ioc.services.ChainBuilder;
 
-import solutions.graviton.swingoflife.enums.CellState;
 import solutions.graviton.swingoflife.services.impl.OverPopulationRule;
 import solutions.graviton.swingoflife.services.impl.PreservationRule;
 import solutions.graviton.swingoflife.services.impl.PropertiesImpl;
 import solutions.graviton.swingoflife.services.impl.ReproductionRule;
-import solutions.graviton.swingoflife.services.impl.RuleExecutorImpl;
 import solutions.graviton.swingoflife.services.impl.UnderPopulationRule;
 
 /**
@@ -32,71 +28,20 @@ public class AppModule
 	 */
 	public static void bind(ServiceBinder binder)
 	{
-		binder.bind(RuleExecutor.class, RuleExecutorImpl.class);
-		/*
-		 * Not necessary to bind rule classes, as can be simply instantiated,
-		 * but having them bound by the IoC container, allows them to be
-		 * injected in any of the other bound services, which might come in
-		 * handy.
-		 */
-		binder.bind(ConwayRule.class, OverPopulationRule.class).withId(
-			"OverPopulationRule");
-		binder.bind(ConwayRule.class, UnderPopulationRule.class).withId(
-			"UnderPopulationRule");
-		binder.bind(ConwayRule.class, PreservationRule.class).withId(
-			"PreservationRule");
-		binder.bind(ConwayRule.class, ReproductionRule.class).withId(
-			"ReproductionRule");
-
 		binder.bind(Properties.class, PropertiesImpl.class);
-
-		// binder.bind(InternalRegistry.class, RegistryImpl.class);
 	}
-
-	/**
-	 * Provides configuration of sets of rules to be applied for each
-	 * {@link CellState}
-	 * 
-	 * @param configuration
-	 */
-	@Contribute(RuleExecutor.class)
-	public static void provideConwayRules(
-		MappedConfiguration<CellState,Set<ConwayRule>> configuration,
-		@Inject ObjectLocator locator)
+	
+	public static ConwayRule buildDefaultRuleExecutor(List<ConwayRule> commands, @InjectService("ChainBuilder") ChainBuilder chainBuilder )
 	{
-		configuration.add(CellState.ACTIVE, getActiveRuleSet(locator));
-		configuration.add(CellState.INACTIVE, getInactiveRules(locator));
+		return chainBuilder.build(ConwayRule.class, commands);
 	}
-
-	/**
-	 * Convenience method for creation of the active rule set
-	 * 
-	 * @param locator (Tapestry IoC ObjectLocater)
-	 * @return set of {@link ConwayRule}
-	 */
-	private static Set<ConwayRule> getActiveRuleSet(ObjectLocator locator)
+	
+	public static void contributeDefaultRuleExecutor(OrderedConfiguration<ConwayRule> configuration)
 	{
-		Set<ConwayRule> rules = new HashSet<ConwayRule>();
-
-		rules.add(locator.getService("OverPopulationRule", ConwayRule.class));
-		rules.add(locator.getService("UnderPopulationRule", ConwayRule.class));
-		rules.add(locator.getService("PreservationRule", ConwayRule.class));
-
-		return rules;
+		configuration.add("reproductionRule", new ReproductionRule());
+		configuration.add("preservationRule", new PreservationRule());
+		configuration.add("underPopulationRule", new UnderPopulationRule());
+		configuration.add("overPopulationRule", new OverPopulationRule());
 	}
 
-	/**
-	 * Convenience method for creation of the inactive rule set.
-	 * 
-	 * @param locator (Tapestry IoC ObjectLocater)
-	 * @return set of {@link ConwayRule}
-	 */
-	private static Set<ConwayRule> getInactiveRules(ObjectLocator locator)
-	{
-		Set<ConwayRule> rules = new HashSet<ConwayRule>();
-
-		rules.add(locator.getService("ReproductionRule", ConwayRule.class));
-
-		return rules;
-	}
 }
